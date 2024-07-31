@@ -39,6 +39,7 @@
         // after everything is set up, refresh() ScrollTrigger and update LocomotiveScroll because padding may have been added for pinning, etc.
         ScrollTrigger.refresh();
     }
+
     const src=[
   "https://zelt.app/wp-content/uploads/zelt.app-homepage-onedome-1.svg",
   "https://zelt.app/wp-content/uploads/zelt.app-homepage-mumsnet-logo-4.svg",
@@ -57,6 +58,37 @@
   "https://zelt.app/wp-content/uploads/zelt.app-homepage-tilt-logo.png",
   "https://zelt.app/wp-content/uploads/zelt.app-homepage-trustedhousesitters-logo.webp"
 ]
+  
+    // Double the array to ensure smooth looping
+    const loopedSrc = [...src, ...src];
+  
+    let marqueElement;
+    let animation;
+  
+    onMount(() => {
+      // Initial animation
+      animation = gsap.to(marqueElement, {
+        x: '-50%',
+        duration: 20,
+        ease: 'none',
+        repeat: -1,
+      });
+  
+      window.addEventListener('wheel', handleWheel);
+  
+      return () => {
+        window.removeEventListener('wheel', handleWheel);
+        if (animation) animation.kill();
+      };
+    });
+  
+    function handleWheel(event) {
+      if (event.deltaY > 0) {
+        gsap.to(animation, { timeScale: 2, duration: 0.5 });
+      } else {
+        gsap.to(animation, { timeScale: -2, duration: 0.5 });
+      }
+    }
     onMount(() => {
         loco();
         const canvas = document.querySelector("canvas");
@@ -256,25 +288,25 @@ https://zelt.app/assets/img/home/hero/sequence/118.webp
             end: `300% top`,
         });
         // for slider
-        window.addEventListener('wheel',function(dets){
-            if(dets.deltaY>0){
-                gsap.to(".marque",{
-                    transform:'translateX(-200%)',
-                    duration:2,
-                    repeat:-1,
-                    ease:'none'
-                })
-            }
-            else{
-                gsap.to(".marque",{
-                    transform:'translateX(0%)',
-                    duration:2,
-                    repeat:-1,
-                    ease:'none'
-                })
+        // window.addEventListener('wheel',function(dets){
+        //     if(dets.deltaY>0){
+        //         gsap.to(".marque",{
+        //             transform:'translateX(-200%)',
+        //             duration:2,
+        //             repeat:-1,
+        //             ease:'none'
+        //         })
+        //     }
+        //     else{
+        //         gsap.to(".marque",{
+        //             transform:'translateX(0%)',
+        //             duration:2,
+        //             repeat:-1,
+        //             ease:'none'
+        //         })
 
-            }
-        })
+        //     }
+        // })
     });
 </script>
 
@@ -297,18 +329,28 @@ https://zelt.app/assets/img/home/hero/sequence/118.webp
     <div id="page2" class="relative h-screen w-screen bg-transparent"></div>
     <div id="page2" class="relative h-screen w-screen bg-transparent"></div>
     
-    <div id="page3" class="  h-screen "></div>
+    <div id="page3" class="  h-screen ">
+        
+    </div>
     <!-- div for slider -->
      <div class="py-12 border-b">
         <h1 class="text-center text-2xl ">Powering modern people ops teams around the world</h1>
-        <div class="flex gap-3 translate-x-[100%] py-2 marque">
-            {#each src as imag,i}
+        <div class="overflow-hidden mt-8">
+            <div class="flex gap-20 marque" bind:this={marqueElement}>
+              {#each loopedSrc as imag}
                 <img class="h-[3vw] object-cover" src={imag} alt="">
-            {/each}
-        </div>
+              {/each}
+            </div>
+          </div>
      </div>
      <!-- for testing purpos -->
-      <div class="test bg-blue-500 h-screen"></div>
+      <div class="test  h-screen"></div>
 </main>
+
+<style>
+    .marque {
+      width: 200%; /* Double the width to accommodate the duplicated images */
+    }
+  </style>
 
 

@@ -5,5 +5,5 @@
 
 </script>
 <Model></Model>
-<!-- <Slider></Slider> -->
+<Slider></Slider>
 <!-- <Test></Test> -->
