@@ -43,21 +43,52 @@ const provider = new GoogleAuthProvider();
   const logingoogle = async () => {
     try {
       await signInWithPopup(auth, new GoogleAuthProvider());
-      goto('/')
+      // goto('/')
+      alert("login")
     } catch (error) {
       console.error("Google login error:", error);
     }
   };
 
+  // const logingoogle = async () => {
+  //   const auth = getAuth();
+  //   signInWithPopup(auth, provider)
+  //     .then((result) => {
+  //       // This gives you a Google Access Token. You can use it to access the Google API.
+  //       // const credential = GoogleAuthProvider.credentialFromResult(result);
+  //       // console.log("cred"+credential)
+  //       // const token = credential.accessToken;
+  //       // The signed-in user info.
+  //       const user = result.user;
+  //       console.log("user", user)
+  //       // IdP data available using getAdditionalUserInfo(result)
+  //       // ...
+  //     })
+  //     .catch((error) => {
+  //       // Handle Errors here.
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       // The email of the user's account used.
+  //       const email = error.customData.email;
+  //       // The AuthCredential type that was used.
+  //       const credential = GoogleAuthProvider.credentialFromError(error);
+  //       // ...
+  //     });
+  // };
 
-  const loginWithGithub = async () => {
-    try {
-      await signInWithPopup(auth, new GithubAuthProvider());
-      goto("/");
-    } catch (error) {
-      console.error("GitHub login error:", error);
-    }
-  };
+  // const loginWithGoogle=()=>{
+  //   const auth=getAuth(app);
+  //   signInWithPopup(auth,new GoogleAuthProvider());
+  // }
+
+  // const logingit = async () => {
+  //   try {
+  //     await signInWithPopup(auth, new GithubAuthProvider());
+  //     // goto("/");
+  //   } catch (error) {
+  //     console.error("GitHub login error:", error);
+  //   }
+  // };
 
 </script>
 
@@ -103,10 +134,6 @@ const provider = new GoogleAuthProvider();
         <p class="float-end mt-3">
           Not a user? <a href="/signup" class="card-link">Sign Up</a>
         </p>
-        <br>
-        <button type="button" class="border px-3 py-1" on:click={()=>goto('/otpLogin')}
-          >Login with OTP</button
-        >
       {:else}
         <a href="/login" class="card-link">Login</a>
       {/if}

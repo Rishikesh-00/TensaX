@@ -1,11 +1,9 @@
 <script>
     import "../app.css";
     import App from './fb';
-    
     import {onMount} from "svelte";
     import {getAuth,onAuthStateChanged,signOut} from 'firebase/auth';
     import { goto } from "$app/navigation";
-    // import OtpLogin from "../lib/components/login/otpLogin.svelte";
     // import { isLoggedIn } from "../../../routes/stores/authStore";
     // import { Username } from "$lib/store.js";
     onMount(()=>{
